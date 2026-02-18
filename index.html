@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Burger Bros</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:'Montserrat',sans-serif;
+    background:linear-gradient(135deg,#0f0f0f,#1c1c1c);
+    color:#f5f5f5;
+}
+
+header{
+    background:linear-gradient(90deg,#111,#1f1f1f);
+    padding:40px 20px;
+    text-align:center;
+    border-bottom:1px solid #2a2a2a;
+}
+
+header h1{margin:0;font-size:34px;}
+header p{margin-top:6px;opacity:.7;}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:30px 20px;
+}
+
+.category{margin-top:40px;}
+.category h2{
+    margin-bottom:15px;
+    font-size:22px;
+    border-left:4px solid #ffcc00;
+    padding-left:10px;
+}
+
+.menu{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+}
+
+.item{
+    background:#1f1f1f;
+    border-radius:16px;
+    padding:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.5);
+    transition:.3s;
+}
+
+.item:hover{
+    transform:translateY(-6px);
+}
+
+.item img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-bottom:10px;
+}
+
+.price{
+    color:#ffcc00;
+    font-weight:700;
+    margin:8px 0;
+}
+
+button{
+    border:none;
+    background:#ffcc00;
+    color:#000;
+    padding:8px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    width:100%;
+}
+
+.cart-box{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:330px;
+    max-height:85vh;
+    overflow-y:auto;
+    background:#1b1b1b;
+    border-radius:18px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.8);
+    padding:18px;
+}
+
+.cart-title{font-weight:700;margin-bottom:10px;}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+.qty-controls{display:flex;gap:5px;}
+.qty-controls button{
+    background:#333;
+    color:white;
+    padding:4px 8px;
+}
+
+.total{margin-top:10px;font-weight:700;}
+
+.form{
+    margin-top:15px;
+    display:grid;
+    gap:8px;
+}
+
+.form input,.form select{
+    padding:8px;
+    border-radius:8px;
+    border:none;
+}
+
+.whatsapp{
+    margin-top:10px;
+    background:#25D366;
+    color:white;
+}
+
+.info{
+    margin-top:50px;
+    background:#1f1f1f;
+    border-radius:16px;
+    padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🍔 Burger Bros</h1>
+<p>Hamburguesas • Hot Dogs • Boneless</p>
+</header>
+
+<div class="container">
+
+<div class="category">
+<h2>🍔 Hamburguesas & Tortas</h2>
+<div class="menu" id="burgers"></div>
+</div>
+
+<div class="category">
+<h2>🌭 Hot Dogs & Boneless</h2>
+<div class="menu" id="others"></div>
+</div>
+
+<div class="info">
+<h2>📍 Información</h2>
+<div><strong>Horario:</strong> Jueves, viernes y sábado de 6 a 12 pm</div>
+<div><strong>Dirección:</strong> Calle Río Rhin 300, Jardines de Huinalá, Apodaca</div>
+</div>
+
+</div>
+
+<div class="cart-box">
+<div class="cart-title">🛒 Tu pedido</div>
+<div id="cart"></div>
+<div class="total" id="total">Total: $0</div>
+
+<div class="form">
+<input type="text" id="cliente" placeholder="Tu nombre">
+
+<select id="envio" onchange="toggleDireccion()">
+<option value="Recoger en local">Recoger en local</option>
+<option value="Envío a domicilio">Envío a domicilio</option>
+</select>
+
+<input type="text" id="direccion" placeholder="Dirección completa" style="display:none;">
+
+<select id="pago">
+<option value="Efectivo">Efectivo</option>
+<option value="Transferencia">Transferencia</option>
+<option value="Tarjeta">Tarjeta</option>
+</select>
+</div>
+
+<button class="whatsapp" onclick="sendOrder()">Enviar por WhatsApp</button>
+</div>
+
+<script>
+const burgerItems=[
+{name:"Clásica hamburguesa",price:100,image:"img/clasica.jpg"},
+{name:"Porky hamburguesa",price:120,image:"img/porky.jpg"},
+{name:"Hawaiana hamburguesa",price:120,image:"img/hawaiana.jpg"},
+{name:"Doble hamburguesa",price:140,image:"img/doble.jpg"},
+{name:"Hamburguesa italiana",price:120,image:"img/italiana.jpg"},
+{name:"Torta pork belly",price:120,image:"img/porkbelly.jpg"},
+{name:"Torta arrachera",price:120,image:"img/arrachera.jpg"}
+];
+
+const otherItems=[
+{name:"Hot Dog Clásico",price:80,image:"img/hotdog.jpg"},
+{name:"Hot Dog con tocino",price:100,image:"img/hotdogtocino.jpg"},
+{name:"Hot Dog Sultán",price:100,image:"img/sultan.jpg"},
+{name:"Hot Dog Sultán con tocino",price:120,image:"img/sultantocino.jpg"},
+{name:"Boneless 8 pz",price:100,image:"img/boneless.jpg"},
+{name:"Boneless 12 pz",price:120,image:"img/boneless12.jpg"},
+{name:"Orden de papas",price:50,image:"img/papas.jpg"},
+{name:"Papas preparadas",price:60,image:"img/papasprep.jpg"}
+];
+
+let cart=[];
+
+function renderMenu(items,id){
+const el=document.getElementById(id);
+items.forEach(item=>{
+el.innerHTML+=`
+<div class="item">
+<img src="${item.image}">
+<h3>${item.name}</h3>
+<div class="price">$${item.price}</div>
+<button onclick='addToCart("${item.name}",${item.price})'>Agregar</button>
+</div>`;
+});
+}
+
+renderMenu(burgerItems,"burgers");
+renderMenu(otherItems,"others");
+
+function addToCart(name,price){
+const existing=cart.find(p=>p.name===name);
+if(existing) existing.qty++;
+else cart.push({name,price,qty:1});
+renderCart();
+}
+
+function renderCart(){
+const cartEl=document.getElementById("cart");
+const totalEl=document.getElementById("total");
+cartEl.innerHTML="";
+let total=0;
+
+cart.forEach((item,i)=>{
+total+=item.price*item.qty;
+cartEl.innerHTML+=`
+<div class="cart-item">
+<div>${item.name}<br><small>$${item.price}</small></div>
+<div class="qty-controls">
+<button onclick="changeQty(${i},-1)">−</button>
+<span>${item.qty}</span>
+<button onclick="changeQty(${i},1)">+</button>
+</div>
+</div>`;
+});
+
+totalEl.innerText="Total: $"+total;
+}
+
+function changeQty(i,c){
+cart[i].qty+=c;
+if(cart[i].qty<=0) cart.splice(i,1);
+renderCart();
+}
+
+function toggleDireccion(){
+let envio=document.getElementById("envio").value;
+document.getElementById("direccion").style.display=
+envio==="Envío a domicilio"?"block":"none";
+}
+
+function sendOrder(){
+if(cart.length===0){alert("Tu carrito está vacío");return;}
+
+let cliente=document.getElementById("cliente").value;
+if(cliente===""){alert("Escribe tu nombre");return;}
+
+let envio=document.getElementById("envio").value;
+let direccion=document.getElementById("direccion").value;
+let pago=document.getElementById("pago").value;
+
+let message="Hola, quiero hacer un pedido:%0A%0A";
+let total=0;
+
+cart.forEach(item=>{
+let subtotal=item.price*item.qty;
+total+=subtotal;
+message+=`• ${item.name} x${item.qty} - $${subtotal}%0A`;
+});
+
+message+=`%0ATotal: $${total}%0A`;
+message+=`%0ANombre: ${cliente}%0A`;
+message+=`Entrega: ${envio}%0A`;
+if(envio==="Envío a domicilio") message+=`Dirección: ${direccion}%0A`;
+message+=`Método de pago: ${pago}`;
+
+const phone="528120098415"; // CAMBIA POR EL NÚMERO REAL
+
+window.open(`https://wa.me/${phone}?text=${message}`,"_blank");
+}
+</script>
+
+</body>
+</html>
