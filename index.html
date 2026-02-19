@@ -3,308 +3,291 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Burger Bros</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Damore Style | Grabado Láser & Impresión 3D</title>
 
 <style>
+:root{
+  --bg:#05070c;
+  --card:rgba(255,255,255,.06);
+  --border:rgba(255,255,255,.12);
+  --azul:#49a6ff;
+  --azul2:#2f7cf6;
+  --txt:#ffffff;
+  --muted:#b6c2e2;
+}
+
 *{box-sizing:border-box}
 
 body{
-    margin:0;
-    font-family:'Montserrat',sans-serif;
-    background:linear-gradient(135deg,#0f0f0f,#1c1c1c);
-    color:#f5f5f5;
+  margin:0;
+  font-family: system-ui, Arial, sans-serif;
+  background:
+     radial-gradient(1200px 500px at 50% -10%, rgba(73,166,255,.18), transparent 60%),
+    radial-gradient(600px 300px at 10% 20%, rgba(73,166,255,.12), transparent 70%),
+    radial-gradient(600px 300px at 90% 80%, rgba(47,124,246,.10), transparent 70%),
+    linear-gradient(180deg, #05070c 0%, #03050a 100%);
+  color:var(--txt);
 }
 
-header{
-    background:linear-gradient(90deg,#111,#1f1f1f);
-    padding:40px 20px;
-    text-align:center;
-    border-bottom:1px solid #2a2a2a;
+a{text-decoration:none;color:inherit}
+
+.wrap{max-width:1100px;margin:auto;padding:24px}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:14px 18px;
+  border-radius:999px;
+  font-weight:700;
+  background:linear-gradient(135deg,var(--azul),var(--azul2));
+  color:#000;
+  box-shadow:0 10px 30px rgba(73,166,255,.4);
 }
 
-header h1{margin:0;font-size:34px;}
-header p{margin-top:6px;opacity:.7;}
-
-.container{
-    max-width:1100px;
-    margin:auto;
-    padding:30px 20px;
+.card{
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.07),
+    rgba(255,255,255,0.03)
+  );
+  border:1px solid rgba(255,255,255,0.14);
+  border-radius:22px;
+  padding:22px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 40px rgba(0,0,0,.35);
 }
 
-.category{margin-top:40px;}
-.category h2{
-    margin-bottom:15px;
-    font-size:22px;
-    border-left:4px solid #ffcc00;
-    padding-left:10px;
 }
 
-.menu{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-    gap:20px;
+.hero{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:22px;
+  margin-top:20px;
+  align-items:start;
+}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+
+.hero h1{
+  font-size:42px;
+  margin:0 0 10px;
 }
 
-.item{
-    background:#1f1f1f;
-    border-radius:16px;
-    padding:15px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.5);
-    transition:.3s;
+.sub{color:var(--muted)}
+
+.badges{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:16px 0;
 }
 
-.item:hover{
-    transform:translateY(-6px);
+.badge{
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px dashed var(--border);
+  font-size:13px;
+  color:var(--muted);
 }
 
-.item img{
-    width:100%;
-    height:150px;
-    object-fit:cover;
-    border-radius:12px;
-    margin-bottom:10px;
+.section{margin-top:50px}
+.section h2{
+  margin:0 0 14px;
+  color:var(--azul);
 }
 
-.price{
-    color:#ffcc00;
-    font-weight:700;
-    margin:8px 0;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:16px;
 }
 
-button{
-    border:none;
-    background:#ffcc00;
-    color:#000;
-    padding:8px;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:600;
-    width:100%;
+.product{
+  text-align:center;
+}
+.product img{
+  width:100%;
+  border-radius:14px;
+  margin-bottom:10px;
 }
 
-.cart-box{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    width:330px;
-    max-height:85vh;
-    overflow-y:auto;
-    background:#1b1b1b;
-    border-radius:18px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.8);
-    padding:18px;
+/* GALERÍA */
+.gallery img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:14px;
+  transition:.3s;
+}
+.gallery img:hover{
+  transform:scale(1.04);
 }
 
-.cart-title{font-weight:700;margin-bottom:10px;}
-
-.cart-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:10px;
-    font-size:14px;
+footer{
+  margin-top:60px;
+  padding:20px 0;
+  border-top:1px solid var(--border);
+  font-size:13px;
+  color:var(--muted);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
 }
 
-.qty-controls{display:flex;gap:5px;}
-.qty-controls button{
-    background:#333;
-    color:white;
-    padding:4px 8px;
+/* LOGO */
+.logo{
+  text-align:center;
+  margin-bottom:22px;
+}
+.logo img{
+  max-width:340px;
+  width:100%;
 }
 
-.total{margin-top:10px;font-weight:700;}
-
-.form{
-    margin-top:15px;
-    display:grid;
-    gap:8px;
+/* REDES */
+.socials{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:16px;
 }
-
-.form input,.form select{
-    padding:8px;
-    border-radius:8px;
-    border:none;
-}
-
-.whatsapp{
-    margin-top:10px;
-    background:#25D366;
-    color:white;
-}
-
-.info{
-    margin-top:50px;
-    background:#1f1f1f;
-    border-radius:16px;
-    padding:20px;
+.socials a{
+  flex:1;
+  justify-content:center;
+  font-size:14px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>🍔 Burger Bros</h1>
-<p>Hamburguesas • Hot Dogs • Boneless</p>
+<header class="wrap">
+  <div class="hero">
+    <div class="card">
+      <div class="logo">
+        <img src="logodamorestyle.png">
+      </div>
+
+      <h1>Grabado Láser & Impresión 3D</h1>
+      <p class="sub">
+        Productos personalizados, regalos, artículos corporativos
+        y <b>prototipos funcionales impresos en 3D</b>.
+      </p>
+
+      <div class="badges">
+        <div class="badge">✔ Personalización total</div>
+        <div class="badge">✔ Envíos a todo México</div>
+        <div class="badge">✔ Facturación disponible</div>
+      </div>
+
+      <a id="btnHero" class="btn" href="#">📲 Cotizar por WhatsApp</a>
+    </div>
+
+    <div class="card">
+      <h2>¿Quiénes somos?</h2>
+      <p class="sub">
+        En <b>Damore Style</b> nos especializamos en <b>grabado láser</b> e
+        <b>impresión 3D</b>. Fabricamos piezas personalizadas y
+        prototipos funcionales a partir de archivos del cliente.
+      </p>
+
+      <div class="socials">
+        <a class="btn" href="https://www.instagram.com/damoree_style?igsh=MWg0NjRxZGd3eTky" target="_blank">📸 Instagram</a>
+        <a class="btn" href="https://wa.me/528128868867" target="_blank">📲 WhatsApp</a>
+        <a class="btn" href="https://www.tiktok.com/@damoreestyle?_t=ZS-90M7L8XOYMS&_r=1" target="_blank">🎵 TikTok</a>
+      </div>
+    </div>
+  </div>
 </header>
 
-<div class="container">
+<main class="wrap">
 
-<div class="category">
-<h2>🍔 Hamburguesas & Tortas</h2>
-<div class="menu" id="burgers"></div>
-</div>
+<section class="section">
+  <h2>Servicios</h2>
+  <div class="grid">
+    <div class="card"><h3>🔥 Grabado Láser</h3><p class="sub">Termos, grillBox, madera y regalos.</p></div>
+    <div class="card"><h3>🧩 Impresión 3D</h3><p class="sub">Prototipos funcionales y llaveros empresariales con chip NFC para compartir redes sociales y paginas con solo acercar un dispositivo movil.</p></div>
+    <div class="card"><h3>🚚 Envíos</h3><p class="sub">A todo México.</p></div>
+    <div class="card"><h3>🧾 Facturación</h3><p class="sub">Disponible.</p></div>
+  </div>
+</section>
 
-<div class="category">
-<h2>🌭 Hot Dogs & Boneless</h2>
-<div class="menu" id="others"></div>
-</div>
+<section class="section">
+  <h2>Productos más vendidos</h2>
+  <div class="grid">
+    <div class="card product">
+      <img src="termos.png">
+      <p>Termos grabados</p>
+    </div>
+    <div class="card product">
+      <img src="llaveros.png">
+      <p>Llaveros inteligentes con NFC</p>
+    </div>
+    <div class="card product">
+      <img src="prototipo.png">
+      <p>Impresión 3D</p>
+    </div>
+  </div>
+</section>
 
-<div class="info">
-<h2>📍 Información</h2>
-<div><strong>Horario:</strong> Jueves, viernes y sábado de 6 a 12 pm</div>
-<div><strong>Dirección:</strong> Calle Río Rhin 300, Jardines de Huinalá, Apodaca</div>
-</div>
+<section class="section">
+  <h2>Pasos para tu compra</h2>
+  <div class="grid">
+    <div class="card"><b>1️⃣ Contáctanos</b><p class="sub">Envíanos tu idea.</p></div>
+    <div class="card"><b>2️⃣ Cotizamos</b><p class="sub">Cotizamos tu diseño y acordamos tiempo de producción.</p></div>
+    <div class="card"><b>3️⃣ Anticipo</b><p class="sub">Solicitamos el 50% del total para iniciar.</p></div>
+    <div class="card"><b>4️⃣ Producción</b><p class="sub">Iniciamos producción y acordamos punto de entrega y horarios.</p></div>
+  </div>
+</section>
 
-</div>
+<section class="section">
+  <h2>Nuestros trabajos</h2>
+  <div class="grid gallery">
+    <div class="card"><img src="pag1.png"></div>
+    <div class="card"><img src="llaveros.png"></div>
+    <div class="card"><img src="sant.png"></div>
+    <div class="card"><img src="inspiración.png"></div>
+    <div class="card"><img src="incel.png"></div>
+    <div class="card"><img src="grabado.png"></div>
+    <div class="card"><img src="medicina.png"></div>
+    <div class="card"><img src="gp.png"></div>
+    <div class="card"><img src="dentista.png"></div>
+    <div class="card"><img src="sbt.png"></div>
+    <div class="card"><img src="grillbox.png"></div>
+    <div class="card"><img src="dr.png"></div>
+    <div class="card"><img src="mercados.png"></div>
+    <div class="card"><img src="one.png"></div>
+    <div class="card"><img src="aguilas.png"></div>
+    <div class="card"><img src="trabajo16.jpg"></div>
 
-<div class="cart-box">
-<div class="cart-title">🛒 Tu pedido</div>
-<div id="cart"></div>
-<div class="total" id="total">Total: $0</div>
+  </div>
+</section>
 
-<div class="form">
-<input type="text" id="cliente" placeholder="Tu nombre">
+<section class="section card">
+  <h2>Ubicación</h2>
+  <p class="sub">📍 Apodaca, Nuevo León, México</p>
+  <a id="btnBottom" class="btn" href="#">📲 Pedir cotización</a>
+</section>
 
-<select id="envio" onchange="toggleDireccion()">
-<option value="Recoger en local">Recoger en local</option>
-<option value="Envío a domicilio">Envío a domicilio</option>
-</select>
+</main>
 
-<input type="text" id="direccion" placeholder="Dirección completa" style="display:none;">
-
-<select id="pago">
-<option value="Efectivo">Efectivo</option>
-<option value="Transferencia">Transferencia</option>
-<option value="Tarjeta">Tarjeta</option>
-</select>
-</div>
-
-<button class="whatsapp" onclick="sendOrder()">Enviar por WhatsApp</button>
-</div>
+<footer class="wrap">
+  <div>© <span id="year"></span> Damore Style</div>
+  <div>Grabado Láser & Impresión 3D</div>
+</footer>
 
 <script>
-const burgerItems=[
-{name:"Clásica hamburguesa",price:100,image:"img/clasica.jpg"},
-{name:"Porky hamburguesa",price:120,image:"img/porky.jpg"},
-{name:"Hawaiana hamburguesa",price:120,image:"img/hawaiana.jpg"},
-{name:"Doble hamburguesa",price:140,image:"img/doble.jpg"},
-{name:"Hamburguesa italiana",price:120,image:"img/italiana.jpg"},
-{name:"Torta pork belly",price:120,image:"img/porkbelly.jpg"},
-{name:"Torta arrachera",price:120,image:"img/arrachera.jpg"}
-];
+const WHATSAPP="528128868867";
+const msg="Hola, vengo de la página de Damore Style y quiero una cotización.";
 
-const otherItems=[
-{name:"Hot Dog Clásico",price:80,image:"img/hotdog.jpg"},
-{name:"Hot Dog con tocino",price:100,image:"img/hotdogtocino.jpg"},
-{name:"Hot Dog Sultán",price:100,image:"img/sultan.jpg"},
-{name:"Hot Dog Sultán con tocino",price:120,image:"img/sultantocino.jpg"},
-{name:"Boneless 8 pz",price:100,image:"img/boneless.jpg"},
-{name:"Boneless 12 pz",price:120,image:"img/boneless12.jpg"},
-{name:"Orden de papas",price:50,image:"img/papas.jpg"},
-{name:"Papas preparadas",price:60,image:"img/papasprep.jpg"}
-];
-
-let cart=[];
-
-function renderMenu(items,id){
-const el=document.getElementById(id);
-items.forEach(item=>{
-el.innerHTML+=`
-<div class="item">
-<img src="${item.image}">
-<h3>${item.name}</h3>
-<div class="price">$${item.price}</div>
-<button onclick='addToCart("${item.name}",${item.price})'>Agregar</button>
-</div>`;
-});
+function wa(m){
+  return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(m)}`;
 }
 
-renderMenu(burgerItems,"burgers");
-renderMenu(otherItems,"others");
-
-function addToCart(name,price){
-const existing=cart.find(p=>p.name===name);
-if(existing) existing.qty++;
-else cart.push({name,price,qty:1});
-renderCart();
-}
-
-function renderCart(){
-const cartEl=document.getElementById("cart");
-const totalEl=document.getElementById("total");
-cartEl.innerHTML="";
-let total=0;
-
-cart.forEach((item,i)=>{
-total+=item.price*item.qty;
-cartEl.innerHTML+=`
-<div class="cart-item">
-<div>${item.name}<br><small>$${item.price}</small></div>
-<div class="qty-controls">
-<button onclick="changeQty(${i},-1)">−</button>
-<span>${item.qty}</span>
-<button onclick="changeQty(${i},1)">+</button>
-</div>
-</div>`;
-});
-
-totalEl.innerText="Total: $"+total;
-}
-
-function changeQty(i,c){
-cart[i].qty+=c;
-if(cart[i].qty<=0) cart.splice(i,1);
-renderCart();
-}
-
-function toggleDireccion(){
-let envio=document.getElementById("envio").value;
-document.getElementById("direccion").style.display=
-envio==="Envío a domicilio"?"block":"none";
-}
-
-function sendOrder(){
-if(cart.length===0){alert("Tu carrito está vacío");return;}
-
-let cliente=document.getElementById("cliente").value;
-if(cliente===""){alert("Escribe tu nombre");return;}
-
-let envio=document.getElementById("envio").value;
-let direccion=document.getElementById("direccion").value;
-let pago=document.getElementById("pago").value;
-
-let message="Hola, quiero hacer un pedido:%0A%0A";
-let total=0;
-
-cart.forEach(item=>{
-let subtotal=item.price*item.qty;
-total+=subtotal;
-message+=`• ${item.name} x${item.qty} - $${subtotal}%0A`;
-});
-
-message+=`%0ATotal: $${total}%0A`;
-message+=`%0ANombre: ${cliente}%0A`;
-message+=`Entrega: ${envio}%0A`;
-if(envio==="Envío a domicilio") message+=`Dirección: ${direccion}%0A`;
-message+=`Método de pago: ${pago}`;
-
-const phone="528120098415"; // CAMBIA POR EL NÚMERO REAL
-
-window.open(`https://wa.me/${phone}?text=${message}`,"_blank");
-}
+btnHero.href=wa(msg);
+btnBottom.href=wa(msg);
+year.textContent=new Date().getFullYear();
 </script>
 
 </body>
